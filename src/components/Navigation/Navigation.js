@@ -5,7 +5,7 @@ import './Navigation.css';
 
 export default function Navigation({ isLoggedIn }) {
  return (
-    <div className="navigation">
+    <nav className="navigation">
       <div className="logo navigation__logo"></div>
       {
         isLoggedIn
@@ -21,6 +21,6 @@ export default function Navigation({ isLoggedIn }) {
           <button class="button button_style_primary">Войти</button>
         </>)
       }
-    </div>
+    </nav>
  );
 };
