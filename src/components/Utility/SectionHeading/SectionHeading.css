@@ -1,0 +1,22 @@
+.section-heading {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -.04em;
+}
+
+.section-heading__line {
+  margin: 28px 0 60px;
+}
+
+@media screen and (min-width: 768px) {
+  .section-heading {
+    font-size: 22px;
+  }
+
+  .section-heading__line {
+    margin: 23px 0 70px;
+  }
+}

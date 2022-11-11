@@ -1,10 +1,12 @@
 import './Main.css';
 import Promo from './Promo';
+import AboutProject from './AboutProject';
 
 export default function Main() {
   return (
-    <div className="main">
+    <main className="main">
       <Promo />
-    </div>
+      <AboutProject />
+    </main>
   );
 };
