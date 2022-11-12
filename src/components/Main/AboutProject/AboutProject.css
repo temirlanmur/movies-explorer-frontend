@@ -5,29 +5,10 @@
 
 .about-project__article {
   margin-bottom: 56px;
-  box-sizing: border-box;
 }
 
 .about-project__article:last-of-type {
   margin-bottom: 0;
-}
-
-.about-project__subheading {
-  margin: 0 0 16px;
-  padding: 0;
-  font-family: Inter, sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  letter-spacing: -.04em;
-}
-
-.about-project__paragraph {
-  margin: 0;
-  padding: 0;
-  font-family: Inter, sans-serif;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 16px;
 }
 
 .about-project__timeline {
@@ -77,16 +58,6 @@
     margin: 0;
   }
 
-  .about-project__subheading {
-    margin: 0 0 22px;
-    font-size: 20px;
-  }
-
-  .about-project__paragraph {
-    font-size: 12px;
-    line-height: 18px;
-  }
-
   .about-project__timeline {
     --first-length: 21%;
     margin-top: 93px;
@@ -100,11 +71,6 @@
 
   .about-project__article {
     --gap: 40px;
-  }
-
-  .about-project__paragraph {
-    font-size: 14px;
-    line-height: 20px;
   }
 
   .about-project__timeline {
