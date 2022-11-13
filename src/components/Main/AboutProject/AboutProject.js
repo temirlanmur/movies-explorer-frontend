@@ -27,8 +27,8 @@ export default function AboutProject() {
         </p>
       </article>
       <div className="timeline about-project__timeline">
-        <span class="timeline__block about-project__timeline-block_first" />
-        <span class="timeline__block about-project__timeline-block_second" />
+        <span className="timeline__block about-project__timeline-block_first" />
+        <span className="timeline__block about-project__timeline-block_second" />
       </div>
     </section>
   );

@@ -10,15 +10,15 @@ export default function Navigation({ isLoggedIn }) {
       {
         isLoggedIn
         ?
-        <button class="navigation__hamburger">
+        <button className="navigation__hamburger">
           <span className="navigation__hamburger-bar"></span>
           <span className="navigation__hamburger-bar"></span>
           <span className="navigation__hamburger-bar"></span>
         </button>
         :
         (<>
-          <button class="link navigation__register-link">Регистрация</button>
-          <button class="button button_style_primary">Войти</button>
+          <button className="link navigation__register-link">Регистрация</button>
+          <button className="button button_style_primary">Войти</button>
         </>)
       }
     </nav>
