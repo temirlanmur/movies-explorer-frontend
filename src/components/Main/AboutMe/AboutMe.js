@@ -29,41 +29,6 @@ export default function AboutMe() {
           Github
         </a>
       </div>
-      <div className="about-me__portfolio">
-        <h3 className="about-me__portfolio-heading">Портфолио</h3>
-        <ul className="about-me__links">
-          <li className="about-me__link-item">
-            <a
-              href="https://github.com/temirlanmur/react-mesto-api-full"
-              className="link about-me__link"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Одностраничное приложение (Express + React)
-            </a>
-          </li>
-          <li className="about-me__link-item">
-            <a
-              href="https://github.com/temirlanmur/task-tracker"
-              className="link about-me__link"
-              target="_blank"
-              rel="noreferrer"
-            >
-              REST API приложение на ASP.NET Core
-            </a>
-          </li>
-          <li className="about-me__link-item">
-            <a
-              href="https://github.com/temirlanmur/project-2"
-              className="link about-me__link"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Бэкенд на Python Django
-            </a>
-          </li>
-        </ul>
-      </div>
     </section>
   );
 };
