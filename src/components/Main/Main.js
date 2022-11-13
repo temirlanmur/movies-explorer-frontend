@@ -1,9 +1,10 @@
-import './Main.css';
 import Promo from './Promo';
 import AboutProject from './AboutProject';
 import Techs from './Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio';
+
+import './Main.css';
 
 export default function Main() {
   return (
