@@ -1,12 +1,12 @@
 import './App.css';
-import Navigation from '../Navigation';
+import Header from '../Header/Header';
 import Main from '../Main';
 import Footer from '../Footer/Footer';
 
 export default function App() {
   return (
     <>
-      <Navigation isLoggedIn={true} />
+      <Header isLoggedIn={true}/>
       <Main />
       <Footer />
     </>
