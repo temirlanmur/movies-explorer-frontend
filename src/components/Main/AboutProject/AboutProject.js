@@ -2,10 +2,11 @@ import '../../Utility/Article/Article.css';
 import '../../Utility/SectionHeading/SectionHeading.css';
 import '../../Utility/Timeline/Timeline.css';
 import './AboutProject.css';
+import CONSTANTS from '../constants';
 
 export default function AboutProject() {
   return (
-    <section className="about-project">
+    <section className="about-project" id={CONSTANTS.ABOUT_PROJECT_ID}>
       <h2 className="section-heading">О проекте</h2>
       <hr className="section-heading__line" />
       <article className="article about-project__article">

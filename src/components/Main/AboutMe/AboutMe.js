@@ -2,10 +2,11 @@ import '../../Utility/Link/Link.css';
 import '../../Utility/SectionHeading/SectionHeading.css';
 import './AboutMe.css';
 import avatarPath from '../../../images/avatar.png';
+import CONSTANTS from '../constants';
 
 export default function AboutMe() {
   return (
-    <section className="about-me">
+    <section className="about-me" id={CONSTANTS.ABOUT_ME_ID}>
       <h2 className="section-heading about-me__heading">Студент</h2>
       <hr className="section-heading__line about-me__heading-line" />
       <img src={avatarPath} alt="avatar" className="about-me__avatar" />

@@ -1,9 +1,10 @@
 import '../../Utility/SectionHeading/SectionHeading.css';
 import './Techs.css';
+import CONSTANTS from '../constants';
 
 export default function Techs() {
   return (
-    <section className="techs">
+    <section className="techs" id={CONSTANTS.TECHS_ID}>
       <h2 className="section-heading">Технологии</h2>
       <hr className="section-heading__line techs__heading-line" />
       <h3 className="techs__subheading">7 технологий</h3>
