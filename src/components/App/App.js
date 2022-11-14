@@ -9,12 +9,14 @@ import Movies from '../Movies';
 import SavedMovies from '../SavedMovies';
 import Profile from '../Profile';
 
+import NotFound from '../Utility/NotFound';
+
 import './App.css';
 
 export default function App() {
   return (
     <>
-      <Login />
+      <NotFound />
     </>
   );
 };
