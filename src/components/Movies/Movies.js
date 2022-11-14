@@ -1,12 +1,16 @@
-import SearchForm from '../SearchForm/SearchForm';
+import SearchForm from '../SearchForm';
+import MoviesCardList from '../MoviesCardList';
 
 import '../Utility/Button/Button.css';
 import './Movies.css';
+
+import cards from './data';
 
 export default function Movies() {
   return (
     <main className="movies">
       <SearchForm />
+      <MoviesCardList cards={cards} />
       <button className="button movies__button">
         Ещё
       </button>
