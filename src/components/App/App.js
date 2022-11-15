@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 import Register from '../Register';
 import Login from '../Login'
 
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Header from '../Header';
+import Footer from '../Footer';
+import Navigation from '../Navigation';
 
 import Main from '../Main';
 import Movies from '../Movies';
@@ -11,12 +14,25 @@ import Profile from '../Profile';
 
 import NotFound from '../Utility/NotFound';
 
-import './App.css';
-
 export default function App() {
+
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  function openNavigation() {
+    setIsNavOpen(true);
+  }
+
+  function closeNavigation() {
+    setIsNavOpen(false);
+  }
+
   return (
     <>
-      <NotFound />
+      <Header isLoggedIn={true} openNavigation={openNavigation} />
+      <Main />
+      <Footer />
+
+      <Navigation isOpen={isNavOpen} close={closeNavigation} />
     </>
   );
 };
