@@ -9,7 +9,7 @@ export default function SavedMovies() {
   return (
     <main className="saved-movies">
       <SearchForm />
-      <MoviesCardList cards={cards.slice(0, 2)} />
+      <MoviesCardList cards={cards.slice(0, 2)} isLoading={false} />
     </main>
   );
 }
