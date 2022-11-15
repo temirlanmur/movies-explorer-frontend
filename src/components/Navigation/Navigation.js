@@ -35,6 +35,11 @@ export default function Navigation({ isOpen, close }) {
                 onClick={close}
                 to="/"
                 className="link navigation__link"
+                activeClassName="navigation__link_active"
+                isActive={(match, location) => {
+                  if (!match) return false;
+                  return location.pathname === '/';
+                }}
               >
                 Главная
               </NavLink>
@@ -44,6 +49,7 @@ export default function Navigation({ isOpen, close }) {
                 onClick={close}
                 to="/movies"
                 className="link navigation__link"
+                activeClassName="navigation__link_active"
               >
                 Фильмы
               </NavLink>
@@ -53,6 +59,7 @@ export default function Navigation({ isOpen, close }) {
                 onClick={close}
                 to="/saved-movies"
                 className="link navigation__link"
+                activeClassName="navigation__link_active"
               >
                 Сохраненные фильмы
               </NavLink>

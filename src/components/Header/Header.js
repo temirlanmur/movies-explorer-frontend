@@ -19,6 +19,7 @@ export default function Header({ isLoggedIn, openNavigation }) {
                 <NavLink
                   to="/movies"
                   className="link header__nav-link"
+                  activeClassName="header__nav-link_active"
                 >
                   Фильмы
                 </NavLink>
@@ -27,6 +28,7 @@ export default function Header({ isLoggedIn, openNavigation }) {
                 <NavLink
                   to="/saved-movies"
                   className="link header__nav-link"
+                  activeClassName="header__nav-link_active"
                 >
                   Сохраненные фильмы
                 </NavLink>

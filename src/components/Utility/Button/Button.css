@@ -12,7 +12,13 @@
   text-decoration: none;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
   box-sizing: border-box;
+  transition: .4s;
+}
+
+.button:hover {
+  opacity: .8;
 }
 
 .button_style_primary {

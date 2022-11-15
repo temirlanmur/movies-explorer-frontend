@@ -76,6 +76,11 @@
   color: #000;
 }
 
+.navigation__link_active {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
 .navigation__link_account {
   width: 100px;
   height: 32px;

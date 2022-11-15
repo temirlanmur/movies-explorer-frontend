@@ -33,8 +33,13 @@
 }
 
 .header__nav-link {
+  font-weight: 400;
   font-size: 13px;
   line-height: 18px;
+}
+
+.header__nav-link_active {
+  font-weight: 500;
 }
 
 .header__nav-link_account {
