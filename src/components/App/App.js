@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Switch, Route } from 'react-router-dom'
 
 import Register from '../Register';
 import Login from '../Login'
@@ -28,9 +29,45 @@ export default function App() {
 
   return (
     <>
-      <Header isLoggedIn={true} openNavigation={openNavigation} />
-      <Main />
-      <Footer />
+      <Switch>
+
+        <Route path="/signup">
+          <Register />
+        </Route>
+
+        <Route path="/signin">
+          <Login />
+        </Route>
+
+        <Route path="/movies">
+          <Header isLoggedIn={true} openNavigation={openNavigation} />
+          <Movies />
+          <Footer />
+        </Route>
+
+        <Route path="/saved-movies">
+          <Header isLoggedIn={true} openNavigation={openNavigation} />
+          <SavedMovies />
+          <Footer />
+        </Route>
+
+        <Route path="/profile">
+          <Header isLoggedIn={true} openNavigation={openNavigation} />
+          <Profile />
+          <Footer />
+        </Route>
+
+        <Route exact path="/">
+          <Header isLoggedIn={true} openNavigation={openNavigation} />
+          <Main />
+          <Footer />
+        </Route>
+
+        <Route path="*">
+          <NotFound />
+        </Route>
+
+      </Switch>
 
       <Navigation isOpen={isNavOpen} close={closeNavigation} />
     </>

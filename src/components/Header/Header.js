@@ -1,3 +1,5 @@
+import { Link, NavLink } from 'react-router-dom';
+
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';
 import '../Utility/Logo/Logo.css';
@@ -6,7 +8,7 @@ import './Header.css';
 export default function Header({ isLoggedIn, openNavigation }) {
   return (
     <header className="header">
-      <div className="logo header__logo"></div>
+      <Link to="/" className="logo header__logo"></Link>
       {
         isLoggedIn
         ?
@@ -14,21 +16,28 @@ export default function Header({ isLoggedIn, openNavigation }) {
           <nav className="header__navigation">
             <ul className="header__nav-items">
               <li className="header__nav-item">
-                <a href="#" className="link header__nav-link">Главная</a>
+                <NavLink
+                  to="/movies"
+                  className="link header__nav-link"
+                >
+                  Фильмы
+                </NavLink>
               </li>
               <li className="header__nav-item">
-                <a href="#" className="link header__nav-link">Фильмы</a>
+                <NavLink
+                  to="/saved-movies"
+                  className="link header__nav-link"
+                >
+                  Сохраненные фильмы
+                </NavLink>
               </li>
               <li className="header__nav-item">
-                <a href="#" className="link header__nav-link">Сохраненные фильмы</a>
-              </li>
-              <li className="header__nav-item">
-                <a
-                  href="#"
+                <NavLink
+                  to="/profile"
                   className="link header__nav-link header__nav-link_account"
                 >
                   Аккаунт
-                </a>
+                </NavLink>
               </li>
             </ul>
           </nav>

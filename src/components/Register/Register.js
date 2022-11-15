@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';
 import '../Utility/Logo/Logo.css';
@@ -42,7 +44,7 @@ export default function Register() {
           Зарегистрироваться
         </button>
         <p className="auth__text">
-          Уже зарегистрированы? <a href="#" className="link auth__link">Войти</a>
+          Уже зарегистрированы? <Link to="/signin" className="link auth__link">Войти</Link>
         </p>
       </div>
     </div>

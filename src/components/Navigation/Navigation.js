@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import '../Utility/Link/Link.css';
 import './Navigation.css';
 
@@ -30,21 +31,40 @@ export default function Navigation({ isOpen, close }) {
         <nav className="navigation__menu">
           <ul className="navigation__items">
             <li className="navigation__item">
-              <a href="#" className="link navigation__link">Главная</a>
+              <NavLink
+                onClick={close}
+                to="/"
+                className="link navigation__link"
+              >
+                Главная
+              </NavLink>
             </li>
             <li className="navigation__item">
-              <a href="#" className="link navigation__link">Фильмы</a>
+              <NavLink
+                onClick={close}
+                to="/movies"
+                className="link navigation__link"
+              >
+                Фильмы
+              </NavLink>
             </li>
             <li className="navigation__item">
-              <a href="#" className="link navigation__link">Сохраненные фильмы</a>
+              <NavLink
+                onClick={close}
+                to="/saved-movies"
+                className="link navigation__link"
+              >
+                Сохраненные фильмы
+              </NavLink>
             </li>
             <li className="navigation__item">
-              <a
-                href="#"
+              <NavLink
+                onClick={close}
+                to="/profile"
                 className="link navigation__link navigation__link_account"
               >
                 Аккаунт
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>

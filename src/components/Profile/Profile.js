@@ -16,18 +16,12 @@ export default function Profile() {
           {user.email}
         </li>
       </ul>
-      <a
-        href="#"
-        className="link profile__link"
-      >
+      <button className="link profile__link">
         Редактировать
-      </a>
-      <a
-        href="#"
-        className="link profile__link profile__link_dangerous"
-      >
+      </button>
+      <button className="link profile__link profile__link_dangerous">
         Выйти из аккаунта
-      </a>
+      </button>
     </main>
   );
 }

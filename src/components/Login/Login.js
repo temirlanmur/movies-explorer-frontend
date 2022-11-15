@@ -3,6 +3,7 @@ import '../Utility/Link/Link.css';
 import '../Utility/Logo/Logo.css';
 
 import '../Utility/Auth/Auth.css';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -33,7 +34,7 @@ export default function Login() {
           Войти
         </button>
         <p className="auth__text">
-          Ещё не зарегистрированы? <a href="#" className="link auth__link">Регистрация</a>
+          Ещё не зарегистрированы? <Link to="/signup" className="link auth__link">Регистрация</Link>
         </p>
       </div>
     </div>
