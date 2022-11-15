@@ -63,7 +63,7 @@
   box-sizing: border-box;
 }
 
-.navigation__item_account {
+.navigation__item:last-of-type {
   margin: auto 0 0;
 }
 

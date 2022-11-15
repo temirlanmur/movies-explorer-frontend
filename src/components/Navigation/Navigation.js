@@ -11,6 +11,15 @@ export default function Navigation({ isOpen, close }) {
     document.body.style.overflow = 'visible'
   }
 
+  // Prevents setting "overflow: hidden" when navigation menu is opened and window resized
+  function disableNavigation() {
+    if (window.innerWidth >= 1024) {
+      close();
+    }
+  }
+
+  window.onresize = disableNavigation;
+
   return (
     <div className={navigationClass}>
       <div className="navigation__window-container">
@@ -29,7 +38,7 @@ export default function Navigation({ isOpen, close }) {
             <li className="navigation__item">
               <a href="#" className="link navigation__link">Сохраненные фильмы</a>
             </li>
-            <li className="navigation__item_account">
+            <li className="navigation__item">
               <a
                 href="#"
                 className="link navigation__link navigation__link_account"
