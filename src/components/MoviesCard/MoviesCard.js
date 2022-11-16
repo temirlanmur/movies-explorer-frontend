@@ -17,7 +17,7 @@ export default function MoviesCard({ data }) {
       <div className="movies-card__info">
         <p className="movies-card__name">{data.nameRU}</p>
         <p className="movies-card__duration">{data.duration}</p>
-        <button className={buttonClass}></button>
+        <button type="button" className={buttonClass}></button>
       </div>
     </article>
   );

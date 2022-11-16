@@ -16,10 +16,10 @@ export default function Profile() {
           {user.email}
         </li>
       </ul>
-      <button className="link profile__link">
+      <button type="button" className="link profile__link">
         Редактировать
       </button>
-      <button className="link profile__link profile__link_dangerous">
+      <button type="button" className="link profile__link profile__link_dangerous">
         Выйти из аккаунта
       </button>
     </main>

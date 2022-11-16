@@ -43,7 +43,7 @@ export default function Header({ isLoggedIn, openNavigation }) {
               </li>
             </ul>
           </nav>
-          <button className="header__hamburger" onClick={openNavigation}>
+          <button type="button" className="header__hamburger" onClick={openNavigation}>
             <span className="header__hamburger-bar"></span>
             <span className="header__hamburger-bar"></span>
             <span className="header__hamburger-bar"></span>
@@ -51,8 +51,12 @@ export default function Header({ isLoggedIn, openNavigation }) {
         </>
         :
         (<>
-          <button className="link header__register-link">Регистрация</button>
-          <button className="button button_style_primary">Войти</button>
+          <button type="button" className="link header__register-link">
+            Регистрация
+          </button>
+          <button type="button" className="button button_style_primary">
+            Войти
+          </button>
         </>)
       }
     </header>

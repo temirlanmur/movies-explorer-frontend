@@ -13,7 +13,11 @@ export default function NotFound() {
         <p className="not-found__code">404</p>
         <p className="not-found__text">Страница не найдена</p>
       </div>
-      <button onClick={history.goBack} className="link not-found__link">
+      <button
+        type="button"
+        onClick={history.goBack}
+        className="link not-found__link"
+      >
         Назад
       </button>
     </div>

@@ -11,7 +11,7 @@ export default function Movies() {
     <main className="movies">
       <SearchForm />
       <MoviesCardList cards={cards} isLoading={false} />
-      <button className="button movies__button">
+      <button type="button" className="button movies__button">
         Ещё
       </button>
     </main>

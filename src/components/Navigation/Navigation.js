@@ -25,6 +25,7 @@ export default function Navigation({ isOpen, close }) {
     <div className={navigationClass}>
       <div className="navigation__window-container">
         <button
+          type="button"
           className="navigation__close-button"
           onClick={close}
         ></button>
