@@ -19,6 +19,7 @@ export default function Register() {
               className="auth__input"
               type="text"
               placeholder="Alex"
+              required
             />
             <span className="auth__error-text"></span>
           </label>
@@ -28,6 +29,7 @@ export default function Register() {
               className="auth__input"
               type="email"
               placeholder="myemail@mail.com"
+              required
             />
             <span className="auth__error-text"></span>
           </label>
@@ -36,6 +38,7 @@ export default function Register() {
             <input
               className="auth__input"
               type="password"
+              required
             />
             <span className="auth__error-text">Что-то пошло не так...</span>
           </label>
