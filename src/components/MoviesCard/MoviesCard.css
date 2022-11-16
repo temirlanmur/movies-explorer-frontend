@@ -59,6 +59,7 @@
 
 @media screen and (min-width: 768px) {
   .movies-card {
+    width: 100%;
     padding: 6px;
     display: flex;
     justify-content: space-between;

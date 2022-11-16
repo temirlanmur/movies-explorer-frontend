@@ -1,8 +1,8 @@
 .movies-card-list {
   padding: 40px 10px 20px;
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
   box-sizing: border-box;
 }
@@ -10,8 +10,6 @@
 @media screen and (min-width: 768px) {
   .movies-card-list {
     padding: 60px 30px 30px;
-    flex-direction: column;
-    flex-wrap: nowrap;
     gap: 40px;
   }
 }
