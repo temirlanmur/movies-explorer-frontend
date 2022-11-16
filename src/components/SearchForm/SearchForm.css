@@ -12,6 +12,10 @@
   box-sizing: border-box;
 }
 
+.search-form__text-label_focus {
+  border-color: #ff6838;
+}
+
 .search-form__text-input {
   min-width: calc(100% - 80px);
   max-width: calc(100% - 80px);
