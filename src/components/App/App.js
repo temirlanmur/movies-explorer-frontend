@@ -14,11 +14,17 @@ import SavedMovies from '../SavedMovies';
 import Profile from '../Profile';
 
 import NotFound from '../Utility/NotFound';
+import Popup from '../Utility/Popup';
 
 export default function App() {
 
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [popupState, setPopupState] = useState({
+    text: '',
+    isOpen: false,
+  });
 
+  // Navigation
   function openNavigation() {
     setIsNavOpen(true);
     document.body.style.overflow = 'hidden';
@@ -37,6 +43,15 @@ export default function App() {
   }
 
   window.onresize = disableNavigation;
+
+  // Popup
+  function openPopup(text) {
+    setPopupState({ text, isOpen: true});
+  }
+
+  function closePopup() {
+    setPopupState({ text: '', isOpen: false });
+  }
 
   return (
     <>
@@ -81,6 +96,7 @@ export default function App() {
       </Switch>
 
       <Navigation isOpen={isNavOpen} close={closeNavigation} />
+      <Popup text={popupState.text} close={closePopup} />
     </>
   );
 };
