@@ -6,10 +6,10 @@ import './Movies.css';
 
 import cards from './data';
 
-export default function Movies({ onError }) {
+export default function Movies({ onFormSubmit, onFormError }) {
   return (
     <main className="movies">
-      <SearchForm onError={onError} />
+      <SearchForm onSubmit={onFormSubmit} onError={onFormError} />
       <MoviesCardList cards={cards} isLoading={false} />
       <button type="button" className="button movies__button">
         Ещё

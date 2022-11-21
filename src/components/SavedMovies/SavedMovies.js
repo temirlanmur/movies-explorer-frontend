@@ -5,10 +5,10 @@ import './SavedMovies.css';
 
 import cards from '../Movies/data';
 
-export default function SavedMovies({ onError }) {
+export default function SavedMovies({ onFormSubmit, onFormError }) {
   return (
     <main className="saved-movies">
-      <SearchForm onError={onError} />
+      <SearchForm onSubmit={onFormSubmit} onError={onFormError} />
       <MoviesCardList cards={cards.slice(0, 2)} isLoading={false} />
     </main>
   );

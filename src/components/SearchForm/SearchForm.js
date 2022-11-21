@@ -5,7 +5,7 @@ import './SearchForm.css';
 
 import errorText from './errors';
 
-export default function SearchForm({ onError }) {
+export default function SearchForm({ onSubmit, onError }) {
 
   const [formState, setFormState] = useState({ text: '', flag: false });
   const [isFocused, setIsFocused] = useState(false);
@@ -23,7 +23,8 @@ export default function SearchForm({ onError }) {
     if (!formState.text) {
       onError(errorText);
     } else {
-
+      onSubmit(formState);
+      setFormState({ text: '', flag: false })
     }
   }
 
