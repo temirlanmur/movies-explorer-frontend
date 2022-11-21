@@ -24,7 +24,6 @@ export default function SearchForm({ onSubmit, onError }) {
       onError(errorText);
     } else {
       onSubmit(formState);
-      setFormState({ text: '', flag: false })
     }
   }
 

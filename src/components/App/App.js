@@ -16,26 +16,10 @@ import Movies from '../Movies';
 import SavedMovies from '../SavedMovies';
 import Profile from '../Profile';
 
-import { moviesApi } from '../../utils/MoviesApi';
-import { filterMovies } from './utils';
-
 export default function App() {
 
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
-
-  function handleSearchFormSubmit(formData) {
-    const searchText = formData.text;
-    const shortOnly = formData.flag;
-    moviesApi.getMovies()
-      .then((movies) => {
-        const filtered = filterMovies(movies, shortOnly, searchText);
-        console.log(filtered);
-      })
-      .catch((error) => {
-        openPopup('Во время запроса произошла ошибка');
-      })
-  }
 
   // ===================================
   // Navigation
@@ -84,7 +68,7 @@ export default function App() {
 
         <Route path="/movies">
           <Header isLoggedIn={true} openNavigation={openNavigation} />
-          <Movies onFormSubmit={handleSearchFormSubmit} onFormError={openPopup} />
+          <Movies onFormError={openPopup} />
           <Footer />
         </Route>
 
