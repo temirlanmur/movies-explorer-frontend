@@ -19,10 +19,7 @@ import Popup from '../Utility/Popup';
 export default function App() {
 
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [popupState, setPopupState] = useState({
-    text: '',
-    isOpen: false,
-  });
+  const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
 
   // Navigation
   function openNavigation() {
@@ -50,7 +47,7 @@ export default function App() {
   }
 
   function closePopup() {
-    setPopupState({ text: '', isOpen: false });
+    setPopupState((state) => ({ ...state, isOpen: false }));
   }
 
   return (
@@ -67,13 +64,13 @@ export default function App() {
 
         <Route path="/movies">
           <Header isLoggedIn={true} openNavigation={openNavigation} />
-          <Movies />
+          <Movies onError={openPopup} />
           <Footer />
         </Route>
 
         <Route path="/saved-movies">
           <Header isLoggedIn={true} openNavigation={openNavigation} />
-          <SavedMovies />
+          <SavedMovies onError={openPopup} />
           <Footer />
         </Route>
 
@@ -96,7 +93,11 @@ export default function App() {
       </Switch>
 
       <Navigation isOpen={isNavOpen} close={closeNavigation} />
-      <Popup text={popupState.text} close={closePopup} />
+      <Popup
+        isOpen={popupState.isOpen}
+        text={popupState.text}
+        close={closePopup}
+      />
     </>
   );
 };

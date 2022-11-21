@@ -1,5 +1,6 @@
 .popup {
   visibility: hidden;
+  opacity: 0;
   width: 100%;
   position: fixed;
   top: 3px;
@@ -10,6 +11,7 @@
 
 .popup_open {
   visibility: visible;
+  opacity: 1;
 }
 
 .popup__container {

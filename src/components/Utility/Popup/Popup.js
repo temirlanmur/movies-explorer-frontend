@@ -1,8 +1,8 @@
 import './Popup.css';
 
-export default function Popup({ text, close }) {
+export default function Popup({ isOpen, text, close }) {
 
-  const popupClass = text ? 'popup popup_open' : 'popup';
+  const popupClass = isOpen ? 'popup popup_open' : 'popup';
 
   return (
     <div className={popupClass}>
