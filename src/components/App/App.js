@@ -21,11 +21,22 @@ export default function App() {
 
   function openNavigation() {
     setIsNavOpen(true);
+    document.body.style.overflow = 'hidden';
   }
 
   function closeNavigation() {
     setIsNavOpen(false);
+    document.body.style.overflow = 'visible';
   }
+
+  // Prevents setting "overflow: hidden" when navigation menu is opened and window resized
+  function disableNavigation() {
+    if (window.innerWidth >= 1024) {
+      closeNavigation()
+    }
+  }
+
+  window.onresize = disableNavigation;
 
   return (
     <>

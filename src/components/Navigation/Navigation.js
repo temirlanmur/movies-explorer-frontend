@@ -4,22 +4,7 @@ import './Navigation.css';
 
 export default function Navigation({ isOpen, close }) {
 
-  let navigationClass = 'navigation';
-  if (isOpen) {
-    navigationClass += ' navigation_open';
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = 'visible'
-  }
-
-  // Prevents setting "overflow: hidden" when navigation menu is opened and window resized
-  function disableNavigation() {
-    if (window.innerWidth >= 1024) {
-      close();
-    }
-  }
-
-  window.onresize = disableNavigation;
+  const navigationClass = isOpen ? 'navigation navigation_open' : 'navigation';
 
   return (
     <div className={navigationClass}>
