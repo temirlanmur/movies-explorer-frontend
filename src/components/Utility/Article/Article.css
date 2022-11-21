@@ -1,0 +1,46 @@
+.article {
+  box-sizing: border-box;
+}
+
+.article__heading {
+  margin: 0 0 16px;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -.04em;
+  box-sizing: border-box;
+}
+
+.article__paragraph {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) {
+  .article__heading {
+    margin-bottom: 22px;
+    font-size: 20px;
+  }
+
+  .article__paragraph {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .article__heading {
+    margin-bottom: 26px;
+  }
+
+  .article__paragraph {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

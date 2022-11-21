@@ -1,0 +1,101 @@
+.profile {
+  padding: 70px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.profile__heading {
+  margin: 0 0 80px;
+  padding: 0;
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.profile__info {
+  width: 100%;
+  max-width: 410px;
+  margin: 0 0 363px;
+  padding: 0;
+  list-style: none;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.profile__item {
+  margin: 0 0 17px;
+  padding: 0 0 16px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.profile__item:last-of-type {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.profile__item:nth-child(1)::before {
+  font-weight: 500;
+  content: 'Имя';
+}
+
+.profile__item:nth-child(2)::before {
+  font-weight: 500;
+  content: 'E-mail';
+}
+
+.profile__link {
+  margin: 0 0 16px;
+  font-size: 12px;
+}
+
+.profile__link:last-of-type {
+  margin-bottom: 0;
+}
+
+.profile__link_dangerous {
+  font-weight: 500;
+  color: #ee3465;
+}
+
+@media screen and (min-width: 768px) {
+  .profile {
+    padding: 227px 0 278px;
+  }
+
+  .profile__heading {
+    margin-bottom: 96px;
+  }
+
+  .profile__info {
+    margin-bottom: 194px;
+  }
+
+  .profile__link {
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile {
+    padding: 74px 0 70px;
+  }
+
+  .profile__heading {
+    margin-bottom: 123px;
+  }
+
+  .profile__info {
+    margin-bottom: 204px;
+  }
+}

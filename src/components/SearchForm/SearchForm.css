@@ -1,0 +1,130 @@
+.search-form {
+  padding: 92px 14px 51px;
+  box-sizing: border-box;
+}
+
+.search-form__text-label {
+  margin: 0 0 42px;
+  padding: 0 0 9px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8e8e8;
+  box-sizing: border-box;
+}
+
+.search-form__text-label_focus {
+  border-color: #ff6838;
+}
+
+.search-form__text-input {
+  min-width: calc(100% - 80px);
+  max-width: calc(100% - 80px);
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 0;
+  color: #a0a0a0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.search-form__text-input:focus {
+  outline: none;
+}
+
+.search-form__button {
+  width: 59px;
+  padding: 8px 0;
+  background-color: #ff6838;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  color: #fff;
+  border-radius: 48px;
+}
+
+.search-form__switch-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 18px;
+  box-sizing: border-box;
+}
+
+.search-form__switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.search-form__switch {
+  width: 36px;
+  height: 20px;
+  margin-right: 13px;
+  display: block;
+  position: relative;
+  background-color: #ebebeb;
+  border-radius: 20px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: .4s;
+}
+
+.search-form__switch:before {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  content: '';
+  background-color: #f5f5f5;
+  border-radius: 16px;
+  transition: .4s;
+}
+
+.search-form__switch-input:checked + .search-form__switch {
+  background-color: #2be080;
+}
+
+.search-form__switch-input:checked + .search-form__switch:before {
+  background-color: #fff;
+  transform: translateX(16px);
+}
+
+@media screen and (min-width: 768px) {
+  .search-form {
+    padding: 86px 30px 61px;
+  }
+
+  .search-form__text-label {
+    margin-bottom: 29px;
+    padding-bottom: 15px;
+    background-image: url(../../images/search-icon.svg);
+    background-repeat: no-repeat;
+    background-size: 34px 34px;
+  }
+
+  .search-form__text-input {
+    min-width: calc(100% - 2 * 80px);
+    margin-left: 80px;
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .search-form__switch-label {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .search-form {
+    padding: 70px 70px 48px;
+  }
+}
