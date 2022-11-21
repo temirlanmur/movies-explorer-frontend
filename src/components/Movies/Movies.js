@@ -5,17 +5,20 @@ import MoviesCardList from '../MoviesCardList';
 
 import { moviesApi } from '../../utils/MoviesApi';
 import { filterMovies } from './utils';
+import errorText from '../SearchForm/errors';
 
 import '../Utility/Button/Button.css';
 import './Movies.css';
 
-import cards from './data';
-
 export default function Movies({ onFormError }) {
 
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSearched, setIsSearched] = useState(false);
 
   function handleFormSubmit(formData) {
+    setIsSearched(true);
+    setIsLoading(true);
     const searchText = formData.text;
     const shortOnly = formData.flag;
 
@@ -25,17 +28,21 @@ export default function Movies({ onFormError }) {
         setMovies(filtered);
       })
       .catch((error) => {
-        onFormError('Во время запроса произошла ошибка');
+        onFormError(errorText);
+      })
+      .finally(_ => {
+        setIsLoading(false);
       })
   }
 
   return (
     <main className="movies">
       <SearchForm onSubmit={handleFormSubmit} onError={onFormError} />
-      <MoviesCardList cards={movies} isLoading={false} />
-      <button type="button" className="button movies__button">
-        Ещё
-      </button>
+      <MoviesCardList
+        cards={movies}
+        isSearched={isSearched}
+        isLoading={isLoading}
+      />
     </main>
   );
 }
