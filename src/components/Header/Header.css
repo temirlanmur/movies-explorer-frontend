@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+.header__logo {
+  margin-right: auto;
+}
+
 .header__navigation {
   display: none;
   box-sizing: border-box;
