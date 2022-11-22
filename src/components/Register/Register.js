@@ -86,17 +86,17 @@ export default function Register() {
               errorText={password.error}
             />
           </label>
+          <button
+            className="button auth__button"
+            type="submit"
+            disabled={!isValid}
+          >
+            Зарегистрироваться
+          </button>
+          <p className="auth__text">
+            Уже зарегистрированы? <Link to="/signin" className="link auth__link">Войти</Link>
+          </p>
         </form>
-        <button
-          className="button auth__button"
-          type="submit"
-          disabled={!isValid}
-        >
-          Зарегистрироваться
-        </button>
-        <p className="auth__text">
-          Уже зарегистрированы? <Link to="/signin" className="link auth__link">Войти</Link>
-        </p>
       </div>
     </div>
   );

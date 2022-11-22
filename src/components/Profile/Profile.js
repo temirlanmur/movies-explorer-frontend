@@ -1,7 +1,7 @@
 import '../Utility/Link/Link.css';
 import './Profile.css';
 
-export default function Profile() {
+export default function Profile({ onLogout }) {
 
   const user = { name: 'Виталий', email: 'pochta@yandex.ru' };
 
@@ -19,7 +19,11 @@ export default function Profile() {
       <button type="button" className="link profile__link">
         Редактировать
       </button>
-      <button type="button" className="link profile__link profile__link_dangerous">
+      <button
+        type="button"
+        className="link profile__link profile__link_dangerous"
+        onClick={onLogout}
+      >
         Выйти из аккаунта
       </button>
     </main>

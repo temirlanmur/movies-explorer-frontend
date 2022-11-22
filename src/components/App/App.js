@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useHistory } from 'react-router-dom'
+
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import storage from '../../utils/StorageProvider';
 
 import NotFound from '../Utility/NotFound';
 import Popup from '../Utility/Popup';
+import ProtectedRoute from '../Utility/ProtectedRoute';
 
 import Register from '../Register';
 import Login from '../Login'
@@ -18,8 +22,34 @@ import Profile from '../Profile';
 
 export default function App() {
 
+  const history = useHistory();
+
+  const [currentUser, setCurrentUser] = useState({ email: '', name: '' });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
+
+  // ===================================
+  // Authorization
+  // ===================================
+  function handleLogin(response) {
+    const token = response?.token;
+    if (token) {
+      storage.setToken(token);
+      setIsLoggedIn(true);
+      history.push('/');
+    } else {
+      openPopup('Ошибка при попытке входа');
+    }
+  }
+
+  function handleLogout() {
+    storage.removeToken();
+    setIsLoggedIn(false);
+    setCurrentUser({ email: '', name: '' });
+    history.push('/signin');
+  }
 
   // ===================================
   // Navigation
@@ -55,7 +85,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Switch>
 
         <Route path="/signup">
@@ -63,29 +93,29 @@ export default function App() {
         </Route>
 
         <Route path="/signin">
-          <Login />
+          <Login onLogin={handleLogin} onError={openPopup} />
         </Route>
 
-        <Route path="/movies">
-          <Header isLoggedIn={true} openNavigation={openNavigation} />
+        <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
+          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
           <Movies onFormError={openPopup} />
           <Footer />
-        </Route>
+        </ProtectedRoute>
 
-        <Route path="/saved-movies">
-          <Header isLoggedIn={true} openNavigation={openNavigation} />
+        <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
+          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
           <SavedMovies onError={openPopup} />
           <Footer />
-        </Route>
+        </ProtectedRoute>
 
-        <Route path="/profile">
-          <Header isLoggedIn={true} openNavigation={openNavigation} />
-          <Profile />
+        <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
+          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
+          <Profile onLogout={handleLogout} />
           <Footer />
-        </Route>
+        </ProtectedRoute>
 
         <Route exact path="/">
-          <Header isLoggedIn={true} openNavigation={openNavigation} />
+          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
           <Main />
           <Footer />
         </Route>
@@ -102,6 +132,6 @@ export default function App() {
         text={popupState.text}
         close={closePopup}
       />
-    </>
+    </CurrentUserContext.Provider>
   );
 };

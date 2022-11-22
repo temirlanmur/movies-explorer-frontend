@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { mainApi } from '../../utils/MainApi';
+
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';
 import '../Utility/Logo/Logo.css';
@@ -13,7 +15,7 @@ import {
   validatePassword
 } from '../Utility/Auth';
 
-export default function Login() {
+export default function Login({ onLogin, onError }) {
 
   const [email, setEmail] = useState({ value: '', validity: false, error: '' });
   const [password, setPassword] = useState({ value: '', validity: false, error: '' });
@@ -34,6 +36,10 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    mainApi
+      .login({ email: email.value, password: password.value })
+      .then((response) => { onLogin(response) })
+      .catch((error) => { onError(error.message || error.statusText) });
   }
 
   return (
@@ -66,17 +72,17 @@ export default function Login() {
               errorText={password.error}
             />
           </label>
+          <button
+            className="button auth__button"
+            type="submit"
+            disabled={!isValid}
+          >
+            Войти
+          </button>
+          <p className="auth__text">
+            Ещё не зарегистрированы? <Link to="/signup" className="link auth__link">Регистрация</Link>
+          </p>
         </form>
-        <button
-          className="button auth__button"
-          type="submit"
-          disabled={!isValid}
-        >
-          Войти
-        </button>
-        <p className="auth__text">
-          Ещё не зарегистрированы? <Link to="/signup" className="link auth__link">Регистрация</Link>
-        </p>
       </div>
     </div>
   );
