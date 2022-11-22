@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom'
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { mainApi } from '../../utils/MainApi';
 import storage from '../../utils/StorageProvider';
 
 import NotFound from '../Utility/NotFound';
@@ -33,6 +34,15 @@ export default function App() {
   // ===================================
   // Authorization
   // ===================================
+  useEffect(() => {
+    if (isLoggedIn) {
+      mainApi
+        .getProfile()
+        .then((response) => { setCurrentUser(response.data) })
+        .catch((error) => { openPopup(error.message || error.statusText) });
+    }
+  }, [isLoggedIn]);
+
   function handleLogin(response) {
     const token = response?.token;
     if (token) {
