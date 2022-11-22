@@ -25,7 +25,6 @@
 
 .auth__form {
   width: 100%;
-  margin: 0 0 216px;
   box-sizing: border-box;
 }
 
@@ -71,7 +70,7 @@
 
 .auth__button {
   width: 100%;
-  margin: 0 0 14px;
+  margin: 216px 0 14px;
   padding: 15px 68px;
   background-color: #ff6838;
   font-weight: 500;
@@ -116,12 +115,8 @@
     text-align: left;
   }
 
-  .auth__form {
-    margin-bottom: 129px;
-  }
-
   .auth__button {
-    margin-bottom: 16px;
+    margin: 196px 0 16px;
     padding: 13px 0 15px;
     font-size: 14px;
   }
