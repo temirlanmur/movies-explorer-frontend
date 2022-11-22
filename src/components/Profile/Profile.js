@@ -1,9 +1,12 @@
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+
 import '../Utility/Link/Link.css';
 import './Profile.css';
 
 export default function Profile({ onLogout }) {
 
-  const user = { name: 'Виталий', email: 'pochta@yandex.ru' };
+  const user = useContext(CurrentUserContext);
 
   return (
     <main className="profile">
