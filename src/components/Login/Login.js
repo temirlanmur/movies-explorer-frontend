@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import validator from 'validator';
 
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';
@@ -8,32 +7,29 @@ import '../Utility/Logo/Logo.css';
 
 import '../Utility/Auth/Auth.css';
 
-import { AuthTextInput } from '../Utility/Auth';
+import {
+  AuthTextInput,
+  validateEmail,
+  validatePassword
+} from '../Utility/Auth';
 
 export default function Login() {
 
-  const [email, setEmail] = useState({ value: '', error: '' });
-  const [password, setPassword] = useState({ value: '', error: '' });
+  const [email, setEmail] = useState({ value: '', validity: false, error: '' });
+  const [password, setPassword] = useState({ value: '', validity: false, error: '' });
+
+  const isValid = (email.validity && password.validity);
 
   function handleEmailChange(event) {
     const { value } = event.target;
-    let error = '';
-    if (!value) {
-      error = 'Поле не должно быть пустым';
-    }
-    if (!validator.isEmail(value)) {
-      error = 'Невалидный email';
-    }
-    setEmail({ value, error });
+    const { validity, error } = validateEmail(value);
+    setEmail({ value, validity, error });
   }
 
   function handlePasswordChange(event) {
     const { value } = event.target;
-    let error = '';
-    if (!value) {
-      error = 'Поле не должно быть пустым';
-    }
-    setPassword({ value, error });
+    const { validity, error } = validatePassword(value);
+    setPassword({ value, validity, error });
   }
 
   function handleSubmit(event) {
@@ -71,7 +67,11 @@ export default function Login() {
             />
           </label>
         </form>
-        <button className="button auth__button" type="submit">
+        <button
+          className="button auth__button"
+          type="submit"
+          disabled={!isValid}
+        >
           Войти
         </button>
         <p className="auth__text">

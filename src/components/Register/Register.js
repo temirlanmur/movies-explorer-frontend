@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import validator from 'validator';
 
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';
@@ -8,45 +7,37 @@ import '../Utility/Logo/Logo.css';
 
 import '../Utility/Auth/Auth.css';
 
-import { AuthTextInput } from '../Utility/Auth';
+import {
+  AuthTextInput,
+  validateName,
+  validateEmail,
+  validatePassword
+} from '../Utility/Auth';
 
 export default function Register() {
 
-  const [name, setName] = useState({ value: '', error: '' });
-  const [email, setEmail] = useState({ value: '', error: '' });
-  const [password, setPassword] = useState({ value: '', error: '' });
+  const [name, setName] = useState({ value: '', validity: false, error: '' });
+  const [email, setEmail] = useState({ value: '', validity: false, error: '' });
+  const [password, setPassword] = useState({ value: '', validity: false, error: '' });
+
+  const isValid = (name.validity && email.validity && password.validity);
 
   function handleNameChange(event) {
     const { value } = event.target;
-    let error = '';
-    if (!value) {
-      error = 'Поле не должно быть пустым';
-    }
-    if (!validator.matches(value, /^[A-Za-zА-Яа-я\- ]+$/)) {
-      error = 'Имя может содержать только латиницу, кириллицу, пробел или дефис';
-    }
-    setName({ value, error });
+    const { validity, error } = validateName(value);
+    setName({ value, validity, error });
   }
 
   function handleEmailChange(event) {
     const { value } = event.target;
-    let error = '';
-    if (!value) {
-      error = 'Поле не должно быть пустым';
-    }
-    if (!validator.isEmail(value)) {
-      error = 'Невалидный email';
-    }
-    setEmail({ value, error });
+    const { validity, error } = validateEmail(value);
+    setEmail({ value, validity, error });
   }
 
   function handlePasswordChange(event) {
     const { value } = event.target;
-    let error = '';
-    if (!value) {
-      error = 'Поле не должно быть пустым';
-    }
-    setPassword({ value, error });
+    const { validity, error } = validatePassword(value);
+    setPassword({ value, validity, error });
   }
 
   function handleSubmit(event) {
@@ -96,7 +87,11 @@ export default function Register() {
             />
           </label>
         </form>
-        <button className="button auth__button" type="submit">
+        <button
+          className="button auth__button"
+          type="submit"
+          disabled={!isValid}
+        >
           Зарегистрироваться
         </button>
         <p className="auth__text">
