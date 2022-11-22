@@ -35,6 +35,10 @@ export default function App() {
   // Authorization
   // ===================================
   useEffect(() => {
+    checkToken();
+  }, []);
+
+  useEffect(() => {
     if (isLoggedIn) {
       mainApi
         .getProfile()
@@ -59,6 +63,21 @@ export default function App() {
     setIsLoggedIn(false);
     setCurrentUser({ email: '', name: '' });
     history.push('/signin');
+  }
+
+  function checkToken() {
+    const token = storage.getToken();
+    if (token) {
+      mainApi
+        .getProfile()
+        .then((response) => {
+          if (response) {
+            setIsLoggedIn(true);
+            history.push('/');
+          }
+        })
+        .catch((error) => { openPopup(error.message || error.statusText) });
+    }
   }
 
   // ===================================
