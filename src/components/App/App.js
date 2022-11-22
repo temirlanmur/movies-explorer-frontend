@@ -52,7 +52,7 @@ export default function App() {
     if (token) {
       storage.setToken(token);
       setIsLoggedIn(true);
-      history.push('/');
+      history.push('/movies');
     } else {
       openPopup('Ошибка при попытке входа');
     }
@@ -118,7 +118,7 @@ export default function App() {
       <Switch>
 
         <Route path="/signup">
-          <Register />
+          <Register onRegister={handleLogin} onError={openPopup} />
         </Route>
 
         <Route path="/signin">

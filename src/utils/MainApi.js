@@ -21,6 +21,15 @@ class MainApi {
       .then(this._handleResponse);
   }
 
+  register({ email, name, password }) {
+    return fetch(`${this._baseUrl}/signup`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({ email, name, password }),
+    })
+      .then(this._handleResponse);
+  }
+
   getProfile() {
     return this._sendRequest({ url: '/users/me' });
   }

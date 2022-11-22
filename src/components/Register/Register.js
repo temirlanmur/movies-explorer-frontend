@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { mainApi } from '../../utils/MainApi';
+
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';
 import '../Utility/Logo/Logo.css';
@@ -14,7 +16,7 @@ import {
   validatePassword
 } from '../Utility/Auth';
 
-export default function Register() {
+export default function Register({ onRegister, onError }) {
 
   const [name, setName] = useState({ value: '', validity: false, error: '' });
   const [email, setEmail] = useState({ value: '', validity: false, error: '' });
@@ -42,6 +44,20 @@ export default function Register() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    mainApi.register({
+      email: email.value,
+      name: name.value,
+      password: password.value
+    })
+      .then((response) => {
+        if (response.ok) {
+          return mainApi.login({ email: email.value, password: password.value })
+        }
+
+        return Promise.reject(response);
+      })
+      .then((response) => { onRegister(response) })
+      .catch((error) => { onError(error.message || error.statusText) });
   }
 
   return (
