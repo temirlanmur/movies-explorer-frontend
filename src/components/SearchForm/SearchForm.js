@@ -3,11 +3,18 @@ import { useState } from 'react';
 import '../Utility/Button/Button.css';
 import './SearchForm.css';
 
+import { storage } from '../../utils';
 import errorText from './errors';
 
-export default function SearchForm({ onSubmit, onError }) {
+export default function SearchForm({ isStateful, onSubmit, onError }) {
 
-  const [formState, setFormState] = useState({ text: '', flag: false });
+  let text = '', flag = false;
+  if (isStateful) {
+    text = storage.getSearchText();
+    flag = storage.getSearchFlag();
+  }
+
+  const [formState, setFormState] = useState({ text, flag });
   const [isFocused, setIsFocused] = useState(false);
 
   function handleInputChange(event) {

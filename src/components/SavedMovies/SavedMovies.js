@@ -20,7 +20,11 @@ export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) 
 
   return (
     <main className="saved-movies">
-      <SearchForm onSubmit={handleFormSubmit} onError={onFormError} />
+      <SearchForm
+        isStateful={false}
+        onSubmit={handleFormSubmit}
+        onError={onFormError}
+      />
       <MoviesCardList
         cards={searchedMovies}
         isSearched={isSearched}

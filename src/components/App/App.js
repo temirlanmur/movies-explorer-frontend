@@ -49,8 +49,6 @@ export default function App() {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [movies, setMovies] = useState([]);
-
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
 
@@ -130,7 +128,7 @@ export default function App() {
     const movie = parseMovie(data);
     mainApi.saveMovie(JSON.stringify(movie))
       .then((response) => {
-        const updatedSet = [response.data, ...currentUser.savedMovies];
+        const updatedSet = [...currentUser.savedMovies, response.data];
         setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
       })
       .catch((error) => { openPopup(error.message || error.statusText) });
@@ -201,8 +199,6 @@ export default function App() {
         <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
           <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
           <Movies
-            movies={movies}
-            onSearch={setMovies}
             onCardButtonClick={handleCardButtonClick}
             onFormError={openPopup}
           />

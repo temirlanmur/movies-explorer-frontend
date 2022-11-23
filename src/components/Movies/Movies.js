@@ -3,18 +3,17 @@ import { useState } from 'react';
 import SearchForm from '../SearchForm';
 import MoviesCardList from '../MoviesCardList';
 
-import { moviesApi, filterMovies } from '../../utils';
+import { moviesApi, filterMovies, storage } from '../../utils';
 import errorText from '../SearchForm/errors';
 
 import '../Utility/Button/Button.css';
 import './Movies.css';
 
 export default function Movies({
-  movies,
-  onSearch,
   onCardButtonClick,
   onFormError
 }) {
+  const [movies, setMovies] = useState(storage.getSearchedMovies());
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
@@ -25,7 +24,12 @@ export default function Movies({
     moviesApi.getMovies()
       .then((movies) => {
         const filtered = filterMovies(movies, formData.flag, formData.text);
-        onSearch(filtered);
+        storage.saveSearch({
+          searchText: formData.text,
+          searchFlag: formData.flag,
+          searchedMovies: filtered
+        });
+        setMovies(filtered);
       })
       .catch(_ => {
         onFormError(errorText);
@@ -37,7 +41,11 @@ export default function Movies({
 
   return (
     <main className="movies">
-      <SearchForm onSubmit={handleFormSubmit} onError={onFormError} />
+      <SearchForm
+        isStateful={true}
+        onSubmit={handleFormSubmit}
+        onError={onFormError}
+      />
       <MoviesCardList
         cards={movies}
         isSearched={isSearched}
