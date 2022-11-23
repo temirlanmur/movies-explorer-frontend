@@ -9,13 +9,18 @@ import './SavedMovies.css';
 
 export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) {
 
-  const [searchedMovies, setSearchedMovies] = useState(savedMovies);
+  const [movies, setMovies] = useState(savedMovies);
   const [isSearched, setIsSearched] = useState(false);
 
   function handleFormSubmit(formData) {
     setIsSearched(true);
     const filtered = filterMovies(savedMovies, formData.flag, formData.text);
-    setSearchedMovies(filtered);
+    setMovies(filtered);
+  }
+
+  function handleCardDelete(cardId) {
+    setMovies(movies.filter((m) => m.id !== cardId));
+    onCardDelete(cardId);
   }
 
   return (
@@ -26,10 +31,10 @@ export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) 
         onError={onFormError}
       />
       <MoviesCardList
-        cards={searchedMovies}
+        cards={movies}
         isSearched={isSearched}
         isLoading={false}
-        onCardButtonClick={onCardDelete}
+        onCardButtonClick={handleCardDelete}
       />
     </main>
   );
