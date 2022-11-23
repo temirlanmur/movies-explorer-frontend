@@ -108,6 +108,22 @@ export default function App() {
   }
 
   // ===================================
+  // Profile
+  // ===================================
+  function handleProfileEdit({ email, name }) {
+    mainApi.editProfile(JSON.stringify({ email, name }))
+      .then((response) => {
+        if (response.ok) {
+          setCurrentUser((state) => ({
+            ...state, email: response.data.email, name: response.data.name
+          }));
+          openPopup('Данные успешно изменены');
+        }
+      })
+      .catch((error) => { openPopup(error.message || error.statusText) });
+  }
+
+  // ===================================
   // Movies
   // ===================================
   function handleCardSave(data) {
@@ -204,7 +220,7 @@ export default function App() {
 
         <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
           <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
-          <Profile onLogout={handleLogout} />
+          <Profile onEdit={handleProfileEdit} onLogout={handleLogout} />
           <Footer />
         </ProtectedRoute>
 

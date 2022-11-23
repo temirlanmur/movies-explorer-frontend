@@ -45,6 +45,10 @@ class MainApi {
     ]);
   }
 
+  editProfile(data) {
+    return this._sendRequest({ method: 'PATCH', url: '/users/me', body: data });
+  }
+
   saveMovie(movie) {
     return this._sendRequest({ method: 'POST', url: '/movies', body: movie });
   }
