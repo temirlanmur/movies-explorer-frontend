@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom'
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { mainApi } from '../../utils/MainApi';
-import storage from '../../utils/StorageProvider';
+import { storage, mainApi } from '../../utils';
 
 import NotFound from '../Utility/NotFound';
 import Popup from '../Utility/Popup';

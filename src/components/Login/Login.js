@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { mainApi } from '../../utils/MainApi';
+import { mainApi } from '../../utils';
 
 import '../Utility/Button/Button.css';
 import '../Utility/Link/Link.css';

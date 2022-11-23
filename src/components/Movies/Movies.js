@@ -3,8 +3,7 @@ import { useState } from 'react';
 import SearchForm from '../SearchForm';
 import MoviesCardList from '../MoviesCardList';
 
-import { moviesApi } from '../../utils/MoviesApi';
-import { filterMovies } from './utils';
+import { moviesApi, filterMovies } from '../../utils';
 import errorText from '../SearchForm/errors';
 
 import '../Utility/Button/Button.css';
