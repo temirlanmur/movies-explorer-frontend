@@ -21,12 +21,36 @@ import Movies from '../Movies';
 import SavedMovies from '../SavedMovies';
 import Profile from '../Profile';
 
+const MOVIES_URL = 'https://api.nomoreparties.co';
+
+function parseMovie(data) {
+  let movie = {};
+  movie.country = data.country;
+  movie.director = data.director;
+  movie.duration = data.duration;
+  movie.year = data.year;
+  movie.description = data.description;
+  movie.image = MOVIES_URL + data.image.url;
+  movie.trailerLink = data.trailerLink;
+  movie.thumbnail = MOVIES_URL + data.image.url;
+  movie.movieId = data.id;
+  movie.nameRU = data.nameRU;
+  movie.nameEN = data.nameEN;
+  return movie;
+}
+
 export default function App() {
 
   const history = useHistory();
 
-  const [currentUser, setCurrentUser] = useState({ email: '', name: '' });
+  const [currentUser, setCurrentUser] = useState({
+    email: '',
+    name: '',
+    savedMovies: []
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [movies, setMovies] = useState([]);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
@@ -41,8 +65,12 @@ export default function App() {
   useEffect(() => {
     if (isLoggedIn) {
       mainApi
-        .getProfile()
-        .then((response) => { setCurrentUser(response.data) })
+        .getUserData()
+        .then(([profile, movies]) => {
+          const { email, name } = profile.data;
+          const savedMovies = movies.data;
+          setCurrentUser({ email, name, savedMovies });
+        })
         .catch((error) => { openPopup(error.message || error.statusText) });
     }
   }, [isLoggedIn]);
@@ -61,7 +89,7 @@ export default function App() {
   function handleLogout() {
     storage.removeToken();
     setIsLoggedIn(false);
-    setCurrentUser({ email: '', name: '' });
+    setCurrentUser({ email: '', name: '', savedMovies: [] });
     history.push('/signin');
   }
 
@@ -73,8 +101,30 @@ export default function App() {
         .then((response) => {
           if (response) {
             setIsLoggedIn(true);
-            history.push('/');
+            history.push('/movies');
           }
+        })
+        .catch((error) => { openPopup(error.message || error.statusText) });
+    }
+  }
+
+  // ===================================
+  // Movies
+  // ===================================
+  function handleCardButtonClick({ data, savedInstanceId }) {
+    if (savedInstanceId) { // delete the movie
+      mainApi.deleteMovie(savedInstanceId)
+        .then((response) => {
+          const updatedSet = currentUser.savedMovies.filter((m) => m.id !== savedInstanceId);
+          setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
+        })
+        .catch((error) => { openPopup(error.message || error.statusText) });
+    } else { // save the movie
+      const movie = parseMovie(data);
+      mainApi.saveMovie(JSON.stringify(movie))
+        .then((response) => {
+          const updatedSet = [response.data, ...currentUser.savedMovies];
+          setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
         })
         .catch((error) => { openPopup(error.message || error.statusText) });
     }
@@ -127,13 +177,20 @@ export default function App() {
 
         <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
           <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
-          <Movies onFormError={openPopup} />
+          <Movies
+            movies={movies}
+            onSearch={setMovies}
+            onCardButtonClick={handleCardButtonClick}
+            onFormError={openPopup}
+          />
           <Footer />
         </ProtectedRoute>
 
         <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
           <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
-          <SavedMovies onError={openPopup} />
+          <SavedMovies
+            savedMovies={currentUser.savedMovies}
+            onFormError={openPopup} />
           <Footer />
         </ProtectedRoute>
 

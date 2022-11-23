@@ -34,6 +34,25 @@ class MainApi {
     return this._sendRequest({ url: '/users/me' });
   }
 
+  getMovies() {
+    return this._sendRequest({ url: '/movies' });
+  }
+
+  getUserData() {
+    return Promise.all([
+      this.getProfile(),
+      this.getMovies(),
+    ]);
+  }
+
+  saveMovie(movie) {
+    return this._sendRequest({ method: 'POST', url: '/movies', body: movie });
+  }
+
+  deleteMovie(movieId) {
+    return this._sendRequest({ method: 'DELETE', url: `/movies/${movieId}` });
+  }
+
   _handleResponse(response) {
     if (response.ok) {
       return response.json();

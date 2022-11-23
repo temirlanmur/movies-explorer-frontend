@@ -10,24 +10,25 @@ import errorText from '../SearchForm/errors';
 import '../Utility/Button/Button.css';
 import './Movies.css';
 
-export default function Movies({ onFormError }) {
+export default function Movies({
+  movies,
+  onSearch,
+  onCardButtonClick,
+  onFormError
+}) {
 
-  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
 
   function handleFormSubmit(formData) {
     setIsSearched(true);
     setIsLoading(true);
-    const searchText = formData.text;
-    const shortOnly = formData.flag;
-
     moviesApi.getMovies()
       .then((movies) => {
-        const filtered = filterMovies(movies, shortOnly, searchText);
-        setMovies(filtered);
+        const filtered = filterMovies(movies, formData.flag, formData.text);
+        onSearch(filtered);
       })
-      .catch((error) => {
+      .catch(_ => {
         onFormError(errorText);
       })
       .finally(_ => {
@@ -42,6 +43,7 @@ export default function Movies({ onFormError }) {
         cards={movies}
         isSearched={isSearched}
         isLoading={isLoading}
+        onCardButtonClick={onCardButtonClick}
       />
     </main>
   );

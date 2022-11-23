@@ -3,7 +3,12 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.css';
 
-export default function MoviesCardList({ cards, isSearched, isLoading }) {
+export default function MoviesCardList({
+  cards,
+  isSearched,
+  isLoading,
+  onCardButtonClick
+}) {
 
   function renderCards() {
     if (isLoading) {
@@ -13,13 +18,17 @@ export default function MoviesCardList({ cards, isSearched, isLoading }) {
       return <p className="movies-card-list__result-text">Ничего не найдено</p>
     }
     return cards.map((card) => (
-      <MoviesCard key={card.id} data={card} />
+      <MoviesCard
+        key={card.id}
+        data={card}
+        onCardButtonClick={onCardButtonClick}
+      />
     ));
   }
 
   return (
     <section className="movies-card-list">
-      {renderCards()}
+      { renderCards() }
     </section>
   );
 }
