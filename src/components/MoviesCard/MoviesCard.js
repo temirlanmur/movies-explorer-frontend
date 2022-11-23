@@ -35,9 +35,9 @@ export default function MoviesCard({ data, onCardButtonClick }) {
 
   function handleCardButtonClick(event) {
     if (isMainApiCard) {
-      onCardButtonClick(data);
+      onCardButtonClick(data.id);  // card can only be deleted from the saved section
     } else {
-      onCardButtonClick({ data, savedInstanceId });
+      onCardButtonClick({ data, cardId: savedInstanceId });  // either save or delete
     }
   }
 

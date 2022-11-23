@@ -111,22 +111,30 @@ export default function App() {
   // ===================================
   // Movies
   // ===================================
-  function handleCardButtonClick({ data, savedInstanceId }) {
-    if (savedInstanceId) { // delete the movie
-      mainApi.deleteMovie(savedInstanceId)
-        .then((response) => {
-          const updatedSet = currentUser.savedMovies.filter((m) => m.id !== savedInstanceId);
-          setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
-        })
-        .catch((error) => { openPopup(error.message || error.statusText) });
+  function handleCardSave(data) {
+    const movie = parseMovie(data);
+    mainApi.saveMovie(JSON.stringify(movie))
+      .then((response) => {
+        const updatedSet = [response.data, ...currentUser.savedMovies];
+        setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
+      })
+      .catch((error) => { openPopup(error.message || error.statusText) });
+  }
+
+  function handleCardDelete(cardId) {
+    mainApi.deleteMovie(cardId)
+      .then((response) => {
+        const updatedSet = currentUser.savedMovies.filter((m) => m.id !== cardId);
+        setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
+      })
+      .catch((error) => { openPopup(error.message || error.statusText) });
+  }
+
+  function handleCardButtonClick({ data, cardId }) {
+    if (cardId) { // delete the movie
+      handleCardDelete(cardId);
     } else { // save the movie
-      const movie = parseMovie(data);
-      mainApi.saveMovie(JSON.stringify(movie))
-        .then((response) => {
-          const updatedSet = [response.data, ...currentUser.savedMovies];
-          setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
-        })
-        .catch((error) => { openPopup(error.message || error.statusText) });
+      handleCardSave(data);
     }
   }
 
@@ -190,6 +198,7 @@ export default function App() {
           <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
           <SavedMovies
             savedMovies={currentUser.savedMovies}
+            onCardDelete={handleCardDelete}
             onFormError={openPopup} />
           <Footer />
         </ProtectedRoute>
