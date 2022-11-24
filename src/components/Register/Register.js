@@ -63,7 +63,7 @@ export default function Register({ onRegister, onError }) {
   return (
     <div className="auth">
       <div className="auth__wrapper">
-        <div className="logo auth__logo"></div>
+        <Link to="/" className="logo auth__logo"></Link>
         <h1 className="auth__heading">Добро пожаловать!</h1>
         <form className="auth__form" onSubmit={handleSubmit} noValidate={true}>
           <label className="auth__label">
