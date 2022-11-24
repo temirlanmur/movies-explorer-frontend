@@ -11,12 +11,13 @@ import './Profile.css';
 
 export default function Profile({ onEdit, onLogout }) {
 
-  const user = useContext(CurrentUserContext);
+  const { name: initialName, email: initialEmail } = useContext(CurrentUserContext);
 
-  const [name, setName] = useState({ value: user.name, validity: true, error: '' });
-  const [email, setEmail] = useState({ value: user.email, validity: true, error: '' });
+  const [name, setName] = useState({ value: initialName, validity: true, error: '' });
+  const [email, setEmail] = useState({ value: initialEmail, validity: true, error: '' });
 
-  const isValid = (name.validity && email.validity);
+  const isValid = (name.validity && email.validity) &&
+    (name.value !== initialName || email.value !== initialEmail);
 
   function handleNameChange(event) {
     const { value } = event.target;
@@ -37,8 +38,12 @@ export default function Profile({ onEdit, onLogout }) {
 
   return (
     <main className="profile">
-      <h1 className="profile__heading">Привет, {user.name}!</h1>
-      <form className="profile__form" onSubmit={handleSubmit} noValidate={true}>
+      <h1 className="profile__heading">Привет, {initialName}!</h1>
+      <form
+        className="profile__form"
+        onSubmit={handleSubmit}
+        noValidate={true}
+      >
         <label className="profile__label">
           Имя
           <input
