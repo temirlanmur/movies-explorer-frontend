@@ -1,11 +1,12 @@
 import storage from './StorageProvider';
 import { mainApi } from './MainApi';
 import { moviesApi } from './MoviesApi';
-import { filterMovies } from './utils';
+import { filterOnKeyword, filterShort } from './utils';
 
 export {
   storage,
   mainApi,
   moviesApi,
-  filterMovies,
+  filterOnKeyword,
+  filterShort,
 };

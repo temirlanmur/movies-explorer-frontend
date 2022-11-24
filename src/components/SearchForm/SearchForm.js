@@ -6,7 +6,12 @@ import './SearchForm.css';
 import { storage } from '../../utils';
 import errorText from './errors';
 
-export default function SearchForm({ isStateful, onSubmit, onError }) {
+export default function SearchForm({
+  isStateful,
+  onSubmit,
+  onCheckbox,
+  onError
+}) {
 
   let text = '', flag = false;
   if (isStateful) {
@@ -21,8 +26,9 @@ export default function SearchForm({ isStateful, onSubmit, onError }) {
     setFormState((state) => ({ ...state, text: event.target.value }));
   }
 
-  function handleSwitch(event) {
+  function handleCheckbox(event) {
     setFormState((state) => ({ ...state, flag: event.target.checked }));
+    onCheckbox(event.target.checked);
   }
 
   function handleSubmit(event) {
@@ -66,7 +72,7 @@ export default function SearchForm({ isStateful, onSubmit, onError }) {
             className="search-form__switch-input"
             type="checkbox"
             checked={formState.flag}
-            onChange={handleSwitch}
+            onChange={handleCheckbox}
           />
           <span className="search-form__switch" />
           Короткометражки

@@ -1,24 +1,18 @@
 const shortDurationMin = 40;
 
-function filterMovies(movies, shortOnly, searchText) {
-  let filtered;
-
-  // Filter based on duration
-  if (shortOnly) {
-    filtered = movies.filter((movie) => movie.duration <= shortDurationMin);
-  } else {
-    filtered = movies.filter((movie) => movie.duration > shortDurationMin);
-  }
-
-  // Filter based on keyword
+function filterOnKeyword(movies, searchText) {
   const keyword = searchText.toLowerCase();
 
-  return filtered.filter((movie) => {
-    return (
+  return movies.filter((movie) =>
+    (
       movie.nameRU.toLowerCase().includes(keyword) ||
       movie.nameEN.toLowerCase().includes(keyword)
-    );
-  });
+    )
+  );
 }
 
-export { filterMovies };
+function filterShort(movies) {
+  return movies.filter((movie) => movie.duration <= shortDurationMin);
+}
+
+export { filterOnKeyword, filterShort };

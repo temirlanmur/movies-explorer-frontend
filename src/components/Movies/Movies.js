@@ -3,7 +3,7 @@ import { useState } from 'react';
 import SearchForm from '../SearchForm';
 import MoviesCardList from '../MoviesCardList';
 
-import { moviesApi, filterMovies, storage } from '../../utils';
+import { moviesApi, storage, filterOnKeyword, filterShort } from '../../utils';
 import errorText from '../SearchForm/errors';
 
 import '../Utility/Button/Button.css';
@@ -21,20 +21,17 @@ export default function Movies({
   const [isLoading, setIsLoading] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
 
-  function handleFormSubmit(formData) {
-    storage.saveSearch({
-      searchText: formData.text,
-      searchFlag: formData.flag,
-    });
+  function handleFormSubmit({ text, flag }) {
     setIsSearched(true);
+    storage.saveSearch({ searchText: text, searchFlag: flag });
     if (allMovies.length === 0) {
       setIsLoading(true);
       moviesApi.getMovies()
         .then((movies) => {
           storage.saveMovies(movies);
-          const filtered = filterMovies(movies, formData.flag, formData.text);
-          setMovies(filtered);
+          const filtered = filterOnKeyword(movies, text);
           saveSearchedMovies(filtered);
+          setMovies(flag ? filterShort(filtered) : filtered);
         })
         .catch(_ => {
           onFormError(errorText);
@@ -43,11 +40,16 @@ export default function Movies({
           setIsLoading(false);
         })
     } else {
-      const filtered = filterMovies(allMovies, formData.flag, formData.text);
-      setMovies(filtered);
+      const filtered = filterOnKeyword(allMovies, text);
+      setMovies(flag ? filterShort(filtered) : filtered);
       saveSearchedMovies(filtered);
     }
+  }
 
+  function handleCheckbox(flag) {
+    storage.saveSearchFlag(flag);
+    const movies = flag ? filterShort(searchedMovies) : searchedMovies;
+    setMovies(movies.slice());
   }
 
   return (
@@ -55,10 +57,11 @@ export default function Movies({
       <SearchForm
         isStateful={true}
         onSubmit={handleFormSubmit}
+        onCheckbox={handleCheckbox}
         onError={onFormError}
       />
       <MoviesCardList
-        cards={movies}
+        cards={storage.getSearchFlag() ? filterShort(movies) : movies}
         isSearched={isSearched}
         isLoading={isLoading}
         onCardButtonClick={onCardButtonClick}

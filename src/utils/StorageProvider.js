@@ -16,6 +16,10 @@ class StorageProvider {
     localStorage.setItem('search_flag', searchFlag);
   }
 
+  saveSearchFlag(searchFlag) {
+    localStorage.setItem('search_flag', searchFlag)
+  }
+
   saveMovies(movies) {
     localStorage.setItem('search', JSON.stringify(movies));
   }

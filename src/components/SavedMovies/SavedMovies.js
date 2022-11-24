@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm';
 import MoviesCardList from '../MoviesCardList';
 
-import { filterMovies } from '../../utils';
+import { filterOnKeyword, filterShort } from '../../utils';
 
 import './SavedMovies.css';
 
@@ -16,9 +16,12 @@ export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) 
     setMovies(savedMovies);
   }, [savedMovies]);
 
-  function handleFormSubmit(formData) {
+  function handleFormSubmit({ flag, text }) {
     setIsSearched(true);
-    const filtered = filterMovies(savedMovies, formData.flag, formData.text);
+    let filtered = filterOnKeyword(savedMovies, text);
+    if (flag) {
+      filtered = filterShort(filtered);
+    }
     setMovies(filtered);
   }
 
