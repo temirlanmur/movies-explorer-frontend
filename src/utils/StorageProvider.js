@@ -11,10 +11,13 @@ class StorageProvider {
     localStorage.removeItem('token');
   }
 
-  saveSearch({ searchText, searchFlag, searchedMovies }) {
+  saveSearch({ searchText, searchFlag }) {
     localStorage.setItem('search_text', searchText);
     localStorage.setItem('search_flag', searchFlag);
-    localStorage.setItem('search', JSON.stringify(searchedMovies));
+  }
+
+  saveMovies(movies) {
+    localStorage.setItem('search', JSON.stringify(movies));
   }
 
   getSearchText() {
@@ -29,7 +32,7 @@ class StorageProvider {
     return false;
   }
 
-  getSearchedMovies() {
+  getMovies() {
     return JSON.parse(localStorage.getItem('search')) || [];
   }
 }
