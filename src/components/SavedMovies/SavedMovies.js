@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SearchForm from '../SearchForm';
 import MoviesCardList from '../MoviesCardList';
@@ -11,6 +11,10 @@ export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) 
 
   const [movies, setMovies] = useState(savedMovies);
   const [isSearched, setIsSearched] = useState(false);
+
+  useEffect(() => {
+    setMovies(savedMovies);
+  }, [savedMovies]);
 
   function handleFormSubmit(formData) {
     setIsSearched(true);

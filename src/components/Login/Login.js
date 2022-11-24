@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { mainApi } from '../../utils';
 
@@ -15,7 +15,7 @@ import {
   validatePassword
 } from '../Utility/Auth';
 
-export default function Login({ onLogin, onError }) {
+export default function Login({ isLoggedIn, onLogin, onError }) {
 
   const [email, setEmail] = useState({ value: '', validity: false, error: '' });
   const [password, setPassword] = useState({ value: '', validity: false, error: '' });
@@ -40,6 +40,10 @@ export default function Login({ onLogin, onError }) {
       .login({ email: email.value, password: password.value })
       .then((response) => { onLogin(response) })
       .catch((error) => { onError(error.message || error.statusText) });
+  }
+
+  if (isLoggedIn) {
+    return <Redirect to="/movies" />;
   }
 
   return (

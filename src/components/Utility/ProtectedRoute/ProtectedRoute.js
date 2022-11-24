@@ -1,30 +1,24 @@
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export default function ProtectedRoute({
-  component: Component = null,
-  children = null,
-  ...props
-}) {
+import Preloader from '../Preloader';
 
-  if (Component) {
-    return (
-      <Route>
-        {
-          props.isLoggedIn
-            ? <Component { ...props } />
-            : <Redirect to="/signin" />
-        }
-      </Route>
-    );
+export default function ProtectedRoute({
+  path,
+  authorizationState,
+  children
+}) {
+  function render() {
+    if (!authorizationState.tokenChecked) {
+      return <Preloader />;
+    } else if (authorizationState.isLoggedIn) {
+      return (<> {children} </>);
+    } else {
+      return <Redirect to="/" />;
+    }
   }
 
   return (
-    <Route>
-      {
-        props.isLoggedIn
-          ? children
-          : <Redirect to="/signin" />
-      }
-    </Route>
+    <Route path={path} render={render} />
   );
 }

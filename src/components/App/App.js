@@ -47,7 +47,10 @@ export default function App() {
     name: '',
     savedMovies: []
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authorizationState, setAuthorizationState] = useState({
+    isLoggedIn: false,
+    tokenChecked: false,
+  });
 
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
@@ -60,7 +63,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (authorizationState.isLoggedIn) {
       mainApi
         .getUserData()
         .then(([profile, movies]) => {
@@ -70,13 +73,13 @@ export default function App() {
         })
         .catch((error) => { openPopup(error.message || error.statusText) });
     }
-  }, [isLoggedIn]);
+  }, [authorizationState.isLoggedIn]);
 
   function handleLogin(response) {
     const token = response?.token;
     if (token) {
       storage.setToken(token);
-      setIsLoggedIn(true);
+      setAuthorizationState({ isLoggedIn: true, tokenChecked: true });
       history.push('/movies');
     } else {
       openPopup('Ошибка при попытке входа');
@@ -85,7 +88,7 @@ export default function App() {
 
   function handleLogout() {
     storage.removeToken();
-    setIsLoggedIn(false);
+    setAuthorizationState((state) => ({ ...state, isLoggedIn: false }));
     setCurrentUser({ email: '', name: '', savedMovies: [] });
     history.push('/signin');
   }
@@ -97,11 +100,12 @@ export default function App() {
         .getProfile()
         .then((response) => {
           if (response) {
-            setIsLoggedIn(true);
-            history.push('/movies');
+            setAuthorizationState({ isLoggedIn: true, tokenChecked: true });
           }
         })
         .catch((error) => { openPopup(error.message || error.statusText) });
+    } else {
+      setAuthorizationState((state) => ({ ...state, tokenChecked: true }));
     }
   }
 
@@ -189,15 +193,23 @@ export default function App() {
       <Switch>
 
         <Route path="/signup">
-          <Register onRegister={handleLogin} onError={openPopup} />
+          <Register
+            isLoggedIn={authorizationState.isLoggedIn}
+            onRegister={handleLogin}
+            onError={openPopup}
+          />
         </Route>
 
         <Route path="/signin">
-          <Login onLogin={handleLogin} onError={openPopup} />
+          <Login
+            isLoggedIn={authorizationState.isLoggedIn}
+            onLogin={handleLogin}
+            onError={openPopup}
+          />
         </Route>
 
-        <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
-          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
+        <ProtectedRoute path="/movies" authorizationState={authorizationState}>
+          <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <Movies
             onCardButtonClick={handleCardButtonClick}
             onFormError={openPopup}
@@ -205,8 +217,8 @@ export default function App() {
           <Footer />
         </ProtectedRoute>
 
-        <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
+        <ProtectedRoute path="/saved-movies" authorizationState={authorizationState}>
+          <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <SavedMovies
             savedMovies={currentUser.savedMovies}
             onCardDelete={handleCardDelete}
@@ -214,14 +226,14 @@ export default function App() {
           <Footer />
         </ProtectedRoute>
 
-        <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
-          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
+        <ProtectedRoute path="/profile" authorizationState={authorizationState}>
+          <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <Profile onEdit={handleProfileEdit} onLogout={handleLogout} />
           <Footer />
         </ProtectedRoute>
 
         <Route exact path="/">
-          <Header isLoggedIn={isLoggedIn} openNavigation={openNavigation} />
+          <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <Main />
           <Footer />
         </Route>

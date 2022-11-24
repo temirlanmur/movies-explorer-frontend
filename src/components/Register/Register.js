@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { mainApi } from '../../utils';
 
@@ -16,7 +16,7 @@ import {
   validatePassword
 } from '../Utility/Auth';
 
-export default function Register({ onRegister, onError }) {
+export default function Register({ isLoggedIn, onRegister, onError }) {
 
   const [name, setName] = useState({ value: '', validity: false, error: '' });
   const [email, setEmail] = useState({ value: '', validity: false, error: '' });
@@ -58,6 +58,10 @@ export default function Register({ onRegister, onError }) {
       })
       .then((response) => { onRegister(response) })
       .catch((error) => { onError(error.message || error.statusText) });
+  }
+
+  if (isLoggedIn) {
+    return <Redirect to="/movies" />;
   }
 
   return (
