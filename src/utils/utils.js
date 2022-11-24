@@ -1,4 +1,4 @@
-const shortDurationMin = 40;
+import { CONSTS } from '../constants';
 
 function filterOnKeyword(movies, searchText) {
   const keyword = searchText.toLowerCase();
@@ -12,7 +12,7 @@ function filterOnKeyword(movies, searchText) {
 }
 
 function filterShort(movies) {
-  return movies.filter((movie) => movie.duration <= shortDurationMin);
+  return movies.filter((movie) => movie.duration <= CONSTS.SHORT_DURATION_MIN);
 }
 
 export { filterOnKeyword, filterShort };

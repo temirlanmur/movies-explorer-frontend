@@ -5,6 +5,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.css';
 
+import { CONSTS } from '../../constants';
+
 export default function MoviesCardList({
   cards,
   isSearched,
@@ -13,7 +15,7 @@ export default function MoviesCardList({
 }) {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
-  const pageSize = (window.innerWidth <= 375) ? 5 : 7;
+  const pageSize = (window.innerWidth <= CONSTS.WIDTH_BREAKPOINT) ? CONSTS.CARDS_SMALL_SCREEN : CONSTS.CARDS_LARGE_SCREEN;
   const currentTotal = currentPageNumber * pageSize;
   const currentPage = cards.slice(0, currentTotal);
   const isLastPage = currentTotal >= cards.length;
