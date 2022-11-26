@@ -17,12 +17,15 @@ export default function Movies({
   const searchedMovies = storage.getLastSearch();
   const [movies, setMovies] = useState(searchedMovies);
 
+  const [searchString, setSearchString] = useState(storage.getSearchText());
+
   const [isLoading, setIsLoading] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
 
   function handleFormSubmit({ text, flag }) {
     setIsSearched(true);
     storage.saveSearch({ searchText: text, searchFlag: flag });
+    setSearchString(text);
     if (allMovies.length === 0) {
       setIsLoading(true);
       moviesApi.getMovies()
@@ -64,6 +67,7 @@ export default function Movies({
         isSearched={isSearched}
         isLoading={isLoading}
         onCardButtonClick={onCardButtonClick}
+        searchString={searchString}
       />
     </main>
   );

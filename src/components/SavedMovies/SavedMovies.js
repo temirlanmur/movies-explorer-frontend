@@ -13,12 +13,15 @@ export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) 
   const [lastSearch, setLastSearch] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
 
+  const [searchString, setSearchString] = useState('');
+
   useEffect(() => {
     setMovies(savedMovies);
   }, [savedMovies]);
 
   function handleFormSubmit({ flag, text }) {
     setIsSearched(true);
+    setSearchString(text);
     let filtered = filterOnKeyword(savedMovies, text);
     setLastSearch(filtered);
     if (flag) {
@@ -50,6 +53,7 @@ export default function SavedMovies({ savedMovies, onCardDelete, onFormError }) 
         isSearched={isSearched}
         isLoading={false}
         onCardButtonClick={handleCardDelete}
+        searchString={searchString}
       />
     </main>
   );

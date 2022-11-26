@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Preloader from '../Utility/Preloader';
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -11,9 +11,15 @@ export default function MoviesCardList({
   cards,
   isSearched,
   isLoading,
-  onCardButtonClick
+  onCardButtonClick,
+  searchString,
 }) {
+
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
+
+  useEffect(() => {
+    setCurrentPageNumber(1);
+  }, [searchString]);
 
   const pageSize = (window.innerWidth <= CONSTS.WIDTH_BREAKPOINT) ? CONSTS.CARDS_SMALL_SCREEN : CONSTS.CARDS_LARGE_SCREEN;
   const currentTotal = currentPageNumber * pageSize;
