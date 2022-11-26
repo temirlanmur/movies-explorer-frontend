@@ -101,11 +101,23 @@ export default function App() {
         .then((response) => {
           if (response) {
             setAuthorizationState({ isLoggedIn: true, tokenChecked: true });
+          } else {
+            setAuthorizationState({ isLoggedIn: false, tokenChecked: true });
           }
         })
         .catch((error) => { openPopup(error.message || error.statusText) });
     } else {
-      setAuthorizationState((state) => ({ ...state, tokenChecked: true }));
+      setAuthorizationState({ isLoggedIn: false, tokenChecked: true });
+    }
+  }
+
+  function handleAuthorizationError(error) {
+    if (error.status === 401) {
+      setAuthorizationState({ isLoggedIn: false, tokenChecked: true });
+      storage.clear();
+      openPopup('Проблема авторизации, пожалуйста войдите в аккаунт заново');
+    } else {
+      openPopup(error.message || error.statusText);
     }
   }
 
@@ -122,7 +134,7 @@ export default function App() {
           openPopup('Данные успешно изменены');
         }
       })
-      .catch((error) => { openPopup(error.message || error.statusText) });
+      .catch(handleAuthorizationError);
   }
 
   // ===================================
@@ -135,7 +147,7 @@ export default function App() {
         const updatedSet = [...currentUser.savedMovies, response.data];
         setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
       })
-      .catch((error) => { openPopup(error.message || error.statusText) });
+      .catch(handleAuthorizationError);
   }
 
   function handleCardDelete(cardId) {
@@ -144,7 +156,7 @@ export default function App() {
         const updatedSet = currentUser.savedMovies.filter((m) => m.id !== cardId);
         setCurrentUser((state) => ({ ...state, savedMovies: updatedSet }));
       })
-      .catch((error) => { openPopup(error.message || error.statusText) });
+      .catch(handleAuthorizationError);
   }
 
   function handleCardButtonClick({ data, cardId }) {

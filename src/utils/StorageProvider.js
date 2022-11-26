@@ -47,6 +47,10 @@ class StorageProvider {
   getLastSearch() {
     return JSON.parse(localStorage.getItem('last_search')) || [];
   }
+
+  clear() {
+    localStorage.clear();
+  }
 }
 
 const storage = new StorageProvider();

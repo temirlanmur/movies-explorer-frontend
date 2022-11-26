@@ -1,3 +1,4 @@
+import AuthorizationError from "./AuthorizationError";
 import storage from "./StorageProvider";
 
 const {
@@ -71,6 +72,8 @@ class MainApi {
 
     if (token) {
       requestOptions.headers['Authorization'] = `Bearer ${token}`;
+    } else {
+      return Promise.reject(new AuthorizationError('Ошибка авторизации'));
     }
 
     if (body) {
