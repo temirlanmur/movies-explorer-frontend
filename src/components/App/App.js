@@ -204,7 +204,7 @@ export default function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <Switch>
 
-        <Route path="/signup">
+        <Route exact path="/signup">
           <Register
             isLoggedIn={authorizationState.isLoggedIn}
             onRegister={handleLogin}
@@ -212,7 +212,7 @@ export default function App() {
           />
         </Route>
 
-        <Route path="/signin">
+        <Route exact path="/signin">
           <Login
             isLoggedIn={authorizationState.isLoggedIn}
             onLogin={handleLogin}
@@ -220,7 +220,8 @@ export default function App() {
           />
         </Route>
 
-        <ProtectedRoute path="/movies" authorizationState={authorizationState}>
+        <ProtectedRoute exact path="/movies" authorizationState={authorizationState}>
+          {console.log('hello')}
           <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <Movies
             onCardButtonClick={handleCardButtonClick}
@@ -229,7 +230,7 @@ export default function App() {
           <Footer />
         </ProtectedRoute>
 
-        <ProtectedRoute path="/saved-movies" authorizationState={authorizationState}>
+        <ProtectedRoute exact path="/saved-movies" authorizationState={authorizationState}>
           <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <SavedMovies
             savedMovies={currentUser.savedMovies}
@@ -238,7 +239,7 @@ export default function App() {
           <Footer />
         </ProtectedRoute>
 
-        <ProtectedRoute path="/profile" authorizationState={authorizationState}>
+        <ProtectedRoute exact path="/profile" authorizationState={authorizationState}>
           <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <Profile onEdit={handleProfileEdit} onLogout={handleLogout} />
           <Footer />
@@ -250,7 +251,7 @@ export default function App() {
           <Footer />
         </Route>
 
-        <Route path="*">
+        <Route>
           <NotFound />
         </Route>
 
