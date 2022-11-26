@@ -3,16 +3,41 @@ import { useState } from 'react';
 import '../Utility/Button/Button.css';
 import './SearchForm.css';
 
-export default function SearchForm() {
+import { storage } from '../../utils';
+import errorText from './errors';
 
-  const [isFocused, setIsFocused] = useState(false);
+export default function SearchForm({
+  isStateful,
+  onSubmit,
+  onCheckbox,
+  onError
+}) {
 
-  function focusInput() {
-    setIsFocused(true);
+  let text = '', flag = false;
+  if (isStateful) {
+    text = storage.getSearchText();
+    flag = storage.getSearchFlag();
   }
 
-  function unfocusInput() {
-    setIsFocused(false);
+  const [formState, setFormState] = useState({ text, flag });
+  const [isFocused, setIsFocused] = useState(false);
+
+  function handleInputChange(event) {
+    setFormState((state) => ({ ...state, text: event.target.value }));
+  }
+
+  function handleCheckbox(event) {
+    setFormState((state) => ({ ...state, flag: event.target.checked }));
+    onCheckbox(event.target.checked);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (!formState.text) {
+      onError(errorText);
+    } else {
+      onSubmit(formState);
+    }
   }
 
   let labelClass = 'search-form__text-label';
@@ -22,22 +47,33 @@ export default function SearchForm() {
 
   return (
     <section className="search-form">
-      <form className="search-form__form">
+      <form
+        className="search-form__form"
+        onSubmit={handleSubmit}
+        noValidate={true}
+      >
         <label className={labelClass}>
           <input
             className="search-form__text-input"
             type="text"
             placeholder="Фильм"
             required
-            onFocus={focusInput}
-            onBlur={unfocusInput}
+            value={formState.text}
+            onChange={handleInputChange}
+            onFocus={() => { setIsFocused(true) }}
+            onBlur={() => { setIsFocused(false) }}
           />
           <button className="button search-form__button" type="submit">
             Найти
           </button>
         </label>
         <label className="search-form__switch-label">
-          <input className="search-form__switch-input" type="checkbox" />
+          <input
+            className="search-form__switch-input"
+            type="checkbox"
+            checked={formState.flag}
+            onChange={handleCheckbox}
+          />
           <span className="search-form__switch" />
           Короткометражки
         </label>

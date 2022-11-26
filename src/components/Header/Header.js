@@ -51,12 +51,18 @@ export default function Header({ isLoggedIn, openNavigation }) {
         </>
         :
         (<>
-          <button type="button" className="link header__register-link">
+          <NavLink
+            to="/signup"
+            className="link header__register-link"
+          >
             Регистрация
-          </button>
-          <button type="button" className="button button_style_primary">
+          </NavLink>
+          <NavLink
+            to="/signin"
+            className="button button_style_primary"
+          >
             Войти
-          </button>
+          </NavLink>
         </>)
       }
     </header>

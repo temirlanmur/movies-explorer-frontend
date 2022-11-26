@@ -1,0 +1,57 @@
+.popup {
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  position: fixed;
+  top: 3px;
+  left: 0;
+  box-sizing: border-box;
+  transition: .4s;
+}
+
+.popup_open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__container {
+  max-width: 425px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+
+.popup__text {
+  max-width: calc(100% - 58px);
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+.popup__close-button {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: block;
+  background-color: transparent;
+  background-image: url(../../../images/close-button.svg);
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: .4s;
+}
+
+.popup__close-button:hover {
+  opacity: .8;
+}
