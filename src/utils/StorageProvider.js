@@ -24,6 +24,10 @@ class StorageProvider {
     localStorage.setItem('search', JSON.stringify(movies));
   }
 
+  saveLastSearch(movies) {
+    localStorage.setItem('last_search', JSON.stringify(movies));
+  }
+
   getSearchText() {
     return localStorage.getItem('search_text') || '';
   }
@@ -38,6 +42,10 @@ class StorageProvider {
 
   getMovies() {
     return JSON.parse(localStorage.getItem('search')) || [];
+  }
+
+  getLastSearch() {
+    return JSON.parse(localStorage.getItem('last_search')) || [];
   }
 }
 

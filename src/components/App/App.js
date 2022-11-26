@@ -52,8 +52,6 @@ export default function App() {
     tokenChecked: false,
   });
 
-  const [searchedMovies, setSearchedMovies] = useState([]);
-
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [popupState, setPopupState] = useState({ isOpen: false, text: '' });
 
@@ -213,8 +211,6 @@ export default function App() {
         <ProtectedRoute path="/movies" authorizationState={authorizationState}>
           <Header isLoggedIn={authorizationState.isLoggedIn} openNavigation={openNavigation} />
           <Movies
-            searchedMovies={searchedMovies}
-            saveSearchedMovies={setSearchedMovies}
             onCardButtonClick={handleCardButtonClick}
             onFormError={openPopup}
           />

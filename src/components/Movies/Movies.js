@@ -10,12 +10,11 @@ import '../Utility/Button/Button.css';
 import './Movies.css';
 
 export default function Movies({
-  searchedMovies,
-  saveSearchedMovies,
   onCardButtonClick,
   onFormError
 }) {
   const allMovies = storage.getMovies();
+  const searchedMovies = storage.getLastSearch();
   const [movies, setMovies] = useState(searchedMovies);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +29,7 @@ export default function Movies({
         .then((movies) => {
           storage.saveMovies(movies);
           const filtered = filterOnKeyword(movies, text);
-          saveSearchedMovies(filtered);
+          storage.saveLastSearch(filtered);
           setMovies(flag ? filterShort(filtered) : filtered);
         })
         .catch(_ => {
@@ -42,7 +41,7 @@ export default function Movies({
     } else {
       const filtered = filterOnKeyword(allMovies, text);
       setMovies(flag ? filterShort(filtered) : filtered);
-      saveSearchedMovies(filtered);
+      storage.saveLastSearch(filtered);
     }
   }
 
